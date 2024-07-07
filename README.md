@@ -5,7 +5,7 @@ This is a simple digital wallet.
 ## Table of Contents
 
 1. [Introduction](#introduction)
-2. [Tech Stack](#Tech Stack)
+2. [Tech Stack](#Tech_Stack)
 3. [Installation](#installation)
 
 
@@ -13,7 +13,7 @@ This is a simple digital wallet.
 
 The purpose is to provide a cloud based wallet, where an individual may fund, transfer and withdraw funds anywhere in the world. The wallet is free and accessable online.
 
-## Tech Stack
+## Tech_Stack
 
 - Django
 - Python
