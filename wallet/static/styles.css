@@ -1,0 +1,35 @@
+.brand-digital {
+    color: rgb(113, 181, 204);
+    transition: color 0.8s ease; /* Smooth transition for color change */
+}
+.hover-effect:hover {
+    background-color: rgb(126, 219, 107); /* Hover color for the link */
+}
+.hover-effect:hover .brand-digital {
+    color: white; /* Hover color for the "Digital" span */
+}
+.avatar {
+    width: 48px; /* Set the size of the avatar */
+    height: 48px;
+}
+.avatar {
+    width: 48px; /* Set the size of the avatar */
+    height: 48px;
+}
+.local-nav{
+    color: black;
+}
+
+.local-nav:hover{
+    color: green;
+}
+.amount{
+    font-size: 10vw;
+}
+.bg-lightblue {
+    background-color: lightblue;
+    border-radius: 20px;
+    padding: 10px;
+    max-width: 600px;
+    margin: 0 auto;
+}
