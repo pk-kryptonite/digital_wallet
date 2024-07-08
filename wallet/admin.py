@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import User, UserWallet
+from .models import UserWallet
 
-admin.site.register(User)
+
 admin.site.register(UserWallet)
