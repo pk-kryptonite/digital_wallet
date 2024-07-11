@@ -2,17 +2,62 @@
 
 
 {% block content %}
-    <ul class="nav justify-content-center mt-4 bg-lightblue">
-        <li class="nav-item">
-            <a class="nav-link active local-nav" data-toggle="modal" data-target="#fundModal" href="#">Fund</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link local-nav" href="#" data-toggle="modal" data-target="#transferModal" href="#">Transfer</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link disabled" href="#">Withdraw</a>
-        </li>
-    </ul>
+<style>
+.sidenav {
+    height: 100%;
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #f8f9fa;
+    border-right: 1px solid #dee2e6;
+    padding-top: 60px; /* Adjusted for top nav height */
+    z-index: 1;
+}
+.sidenav a {
+    padding: 15px 20px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #333;
+    display: block;
+}
+.sidenav a:hover {
+    background-color: #e9ecef;
+    color: #0056b3;
+}
+.main {
+    margin-left: 250px; /* Same as the width of the sidenav */
+    padding: 20px;
+}
+.navbar-brand {
+    font-size: 1.5rem;
+}
+.navbar {
+    z-index: 2; /* Ensure the top nav is above the side nav */
+}
+</style>
+
+
+
+{% comment %} looked at font-awesome for some nice icons. I need to include more icons for top nav {% endcomment %}
+<div class="sidenav mt-4">
+    <a href="#home"><i class="fa-solid fa-gauge"></i> Dashboard</a>
+    <a href="#services"><i class="fa-solid fa-pen-to-square"></i> Update</a>
+    <a href="#clients"> <i class="fa-solid fa-gear"></i> Settings</a>
+ 
+</div>
+
+<ul class="nav justify-content-center mt-4 bg-lightblue">
+    <li class="nav-item">
+        <a class="nav-link active local-nav" data-toggle="modal" data-target="#fundModal" href="#"><i class="fa-solid fa-wallet"></i> Fund</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link local-nav" href="#" data-toggle="modal" data-target="#transferModal" href="#"><i class="fa-regular fa-handshake"></i> Transfer</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link disabled" href="#"><i class="fa-solid fa-hand-holding-hand"></i> Withdraw</a>
+    </li>
+</ul>
     {% comment %} ------------------------------------------------------------end local nav---------------------------------------------------- {% endcomment %}
     <div class="container mt-5">
         {% if messages %}
@@ -32,7 +77,82 @@
     <h1 id="amount" class="text-center font-weight-bold text-danger amount">R {{ wallet.amount }}</h1>
     {% endfor %}
     {% comment %} ---------------------------------------------------------------------end amount presentation---------------------------------------- {% endcomment %}
+    <table class="table mt-4">
+        <ul class="nav justify-content-center mt-4 bg-lightblue">
+            <li class="nav-item">
+                <h3>Transaction history</h3>
+           
+        </ul>
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Type</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Description</th>
+            <th scope="col">created_at</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for transaction in transaction %}
+          <tr>
+            <th scope="row">{{ transaction.id}}</th>
+            <td>{{ transaction.get_transaction_type_display }}</td>
+            <td>{{ transaction.amount }}</td>
+            <td>  </td>
+            <td> {{ transaction.created_at }} </td>
+          </tr>
+          {% endfor %}
+      </tbody>
+      </table>
 
+
+      {% comment %} ------------------------------------------------------ end of Transaction---------------------------------- {% endcomment %}
+      <nav aria-label="">
+        <ul class="pagination justify-content-center">
+        
+            {% if transaction.has_previous %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{ transaction.previous_page_number }}" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+              <span class="sr-only">Previous</span>
+            </a>
+          </li>
+          
+            {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                </li>
+            {% endif %}
+            {% for num in transaction.paginator.page_range %}   
+            {% comment %} add pagination limiter next so that the numbers do not go out of scope. It would ruin the look for the html page {% endcomment %}
+            {% if transaction.number == num %}   
+                <li class="page-item active"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                {% elif num != transactions.number %}
+                <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                {% endif %}
+            {% endfor %}
+          {% if transaction.has_next %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{ transaction.next_page_number }}" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span> 
+              <span class="sr-only">Next</span>
+            </a>
+          </li>
+          {% else %}
+          <li class="page-item disabled">
+            <a class="page-link" href="#" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+              <span class="sr-only">Next</span>
+            </a>
+          </li>
+          {% endif %}
+        </ul>
+      </nav>
+
+      {% comment %} -------------------------------------------------------end transation table -------------------------------------------- {% endcomment %}
     <div class="modal fade" id="fundModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -67,6 +187,8 @@
         </div>
     </div>
 </div>
+
+
 {% comment %} ---------------------------------------------------------------fund modal ends here-------------------------------------- {% endcomment %}
 <!-- Transfer Modal -->
 <div class="modal fade" id="transferModal" tabindex="-1" role="dialog" aria-labelledby="transferModalLabel" aria-hidden="true">
