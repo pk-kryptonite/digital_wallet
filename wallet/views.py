@@ -80,6 +80,13 @@ def transfer_funds(request):
     transaction_type=Transaction.TRANSFER,
     amount=amount,
     description=""
+    
+)
+                    Transaction.objects.create(
+    wallet=recipient_wallet,
+    transaction_type=Transaction.FUND,
+    amount=amount,
+    description=""
 )
                     messages.success(request, f'R {amount} was successfully transferred to {recipient_username}')
                     return redirect('wallet')

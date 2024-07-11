@@ -7,6 +7,7 @@ This is a simple digital wallet.
 1. [Introduction](#introduction)
 2. [Tech Stack](#Tech_Stack)
 3. [Installation](#installation)
+3. [Limitations](#Limitations)
 
 
 ## Introduction
@@ -29,3 +30,11 @@ The purpose is to provide a cloud based wallet, where an individual may fund, tr
 - python manage.py makemigrations 
 - python manage.py migrate
 - python manage.py runserver
+
+## Limitations
+
+- After adding transaction history, the UI became terrible on small screens (will be fixed on next update)
+- no real intergration with payment API (will be fixed on next update)
+- transaction history should have sender and reciever during money transfer
+
+
