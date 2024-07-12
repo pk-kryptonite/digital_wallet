@@ -33,7 +33,7 @@ The purpose is to provide a cloud based wallet, where an individual may fund, tr
 
 ## Limitations
 
-- After adding transaction history, the UI became terrible on small screens (will be fixed on next update)
+- After adding transaction history, the UI became terrible on small screens (fixed)
 - no real intergration with payment API (will be fixed on next update)
 - transaction history should have sender and reciever during money transfer
 
